@@ -486,10 +486,10 @@ func TestUnmarshalNS(t *testing.T) {
 	}
 }
 
-func TestMarshalUnmarshalRoundTrip(t *testing.T) {
+func TestRoundTrip(t *testing.T) {
 	// From issue 7535
-	source := `<ex:element xmlns:ex="http://example.com/schema"></ex:element>`
-	in := bytes.NewBufferString(source)
+	const s = `<ex:element xmlns:ex="http://example.com/schema"></ex:element>`
+	in := bytes.NewBufferString(s)
 	for i := 0; i < 10; i++ {
 		out := &bytes.Buffer{}
 		d := NewDecoder(in)
@@ -509,8 +509,8 @@ func TestMarshalUnmarshalRoundTrip(t *testing.T) {
 		e.Flush()
 		in = out
 	}
-	if in.String() != source {
-		t.Errorf("have %s; want %s", in.String(), source)
+	if got := in.String(); got != s {
+		t.Errorf("have: %q\nwant: %q\n", got, s)
 	}
 }
 
@@ -724,7 +724,7 @@ type Pod struct {
 	Pea interface{} `xml:"Pea"`
 }
 
-// https://code.google.com/p/go/issues/detail?id=6836
+// https://golang.org/issue/6836
 func TestUnmarshalIntoInterface(t *testing.T) {
 	pod := new(Pod)
 	pod.Pea = new(Pea)
