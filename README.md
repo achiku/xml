@@ -1,7 +1,8 @@
 encoding/xml
 -----------
 
-This repository is a temporary fork of encoding/xml
+This repository is a temporary fork of golang.org/x/net/webdav/internal/xml
+
 with fixes applied to make marshaling of namespaced attributes
 work correctly.
 
